@@ -1,0 +1,55 @@
+login: netanelga 
+Name&ID:Netanel Gabay , 303095228 
+ex4 -DV Algotirhm.
+
+
+
+This program is an implementation of the DV Algotirhm .
+With this program you find the shortest path between a source router to all of the other routers in the system.
+
+
+
+DV Algotirhm
+1.) introduction:
+DV Algotirhm is a routing algorithm which finds the shortest path berween a router to all the other routers in the system,using the Bellman-Ford Algorithm.
+In this Algotirhm each router maintain a routing table(2d array) which contains it's distance vector(simply an array of the costs to go from it to any other router in the system) and every other router's distance vectors.
+The routing table is first filled with the source dv,and after a while each router sends it's dv to all of it's dirce neighbors.
+When a router gets dv from it's neighbor it runs the bellman-ford algorithm , recomputes it's dv and send it's new dv to all of it's neighbors.
+The Algorithm stops when the source router gets 0 from all of it's neighbors,which indicates that they have'nt changed since the last dv it sent them.
+
+
+
+How the DV Algotirhm works:
+denote n as the number of direct neighbors of the source router.
+1. n*2 threads are created :n for sending the dv and n for receving the dv.
+2.another thread is created for recomputing the dv.
+3.the send threads send the dv and the receive threads receive a neighbor's dv.
+4.when all the send&receive threads done thier job,the send thread go into wait mode and the recmputer thread is waked up and recomputes the dv.
+5.if the dv changed the send thread sent the new dv ,else they send 0
+6.if zero was recieved from all the neighbors ,the algorithm stops,else loop to 3.
+
+
+
+2.)Program output:
+the program output is in this form:
+des via cost
+.
+.
+.
+des via cost
+...
+where des: is a destination router
+and     via: is the first router to go through in the shortest path between source router and des router.
+
+3.)How to run the program: 
+-open n Terminals,where n is the number of routers in the system.
+-compile the project by entering "make".
+-enter ./dv | filename | source router | number of attempt to connect to a neighbor router.
+
+
+4.)Submitted files:
+Makefile-the file that take care of the compilation. The input file is named smtp.exe.
+main.c-source file containts the main function and all the functions for the program.
+
+
+
